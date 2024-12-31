@@ -28,8 +28,7 @@ const CreateAirport: React.FC = () => {
     return (
         <div className="container mt-5 container mt-5">
             <h2>Create Airport</h2>
-            <form>
-
+            <Form>
                 <FloatingLabel controlId="floatingName" label="Name" className="mb-3">
                     <Form.Control type="text" placeholder="John F. Kennedy International Airport" />
                 </FloatingLabel>
@@ -43,11 +42,11 @@ const CreateAirport: React.FC = () => {
                 </FloatingLabel>
                 
                 <FloatingLabel controlId="floatingDescription" label="Description" className="mb-3">
-                    <Form.Control type="text" placeholder="Something" />
+                    <Form.Control as="textarea" placeholder="Something" />
                 </FloatingLabel>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+            </Form>
         </div>
     );
 };
