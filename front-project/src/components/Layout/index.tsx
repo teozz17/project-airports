@@ -68,7 +68,8 @@ const Home: React.FC = () => {
           <footer className='bg-dark py-5 mt-5'>
                 <div className='container text-light text-center'>
                     <p className='display-5 mb-3'>Airport Atlas</p>
-                    <small>&copy; 2025</small>
+                    <small>&copy; 2025</small><br />
+                    <small>Add an airport and start sharing your future</small>
                 </div>
           </footer>
         </div>
