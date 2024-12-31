@@ -1,0 +1,27 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import {
+  Route,
+  Routes,
+  BrowserRouter,
+} from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Lists from './pages/Lists';
+
+function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />} >
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<Lists />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
+}
+
+export default App
