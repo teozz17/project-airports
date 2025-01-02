@@ -71,6 +71,7 @@ const Home: React.FC = () => {
           <section className='children'>
                   <Outlet />
           </section>
+          <section className='footer-section'>
             <footer className='bg-dark py-5 mt-5'>
                   <div className='container text-light text-center'>
                       <p className='display-5 mb-3'>Airport Atlas</p>
@@ -78,6 +79,7 @@ const Home: React.FC = () => {
                       <small>Add an airport and start sharing your future</small>
                   </div>
             </footer>
+          </section>
         </div>
     );
 };
