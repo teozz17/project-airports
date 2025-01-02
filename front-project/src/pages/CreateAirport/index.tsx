@@ -40,10 +40,17 @@ const CreateAirport: React.FC = () => {
                 <FloatingLabel controlId="floatingICAO" label="ICAO Code" className="mb-3">
                     <Form.Control type="text" placeholder="KJFK" />
                 </FloatingLabel>
+
+                <Form.Select aria-label="Default select example">
+                    <option value="2">Pending to visit</option>
+                    <option value="1">Visited</option>
+                </Form.Select>
+                <br/>
                 
                 <FloatingLabel controlId="floatingDescription" label="Description" className="mb-3">
                     <Form.Control as="textarea" placeholder="Something" />
                 </FloatingLabel>
+
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </Form>

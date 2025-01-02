@@ -1,0 +1,17 @@
+.airports-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &-element {
+        list-style-type: none;
+    }
+}
+
+.lists-title {
+
+}
+
+.losts {
+    height: 100%;
+}

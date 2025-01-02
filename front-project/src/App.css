@@ -1,5 +1,10 @@
 #root { 
   text-align: center;
   font-family: Exo, sans-serif;
-  height: 100vh;
+  height: 100%;
+}
+
+html, body {
+  background: linear-gradient(#f2dac4, #ffffff);
+
 }

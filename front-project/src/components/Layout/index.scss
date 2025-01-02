@@ -20,6 +20,10 @@ body {
 .layout {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+footer {
+  margin-top: auto;
 }

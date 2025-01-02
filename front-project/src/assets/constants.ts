@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 export const ROUTES = {
-    home: '/',
-    create: 'create',
-  };
+  home: '/',
+  create: 'create',
+  favourites: 'favourites',
+};
