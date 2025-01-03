@@ -51,7 +51,6 @@ const CreateAirport: React.FC = () => {
                     <Form.Control as="textarea" placeholder="Something" />
                 </FloatingLabel>
 
-
                 <button type="submit" className="btn btn-primary">Submit</button>
             </Form>
         </div>

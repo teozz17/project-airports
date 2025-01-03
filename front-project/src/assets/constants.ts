@@ -4,4 +4,5 @@ export const ROUTES = {
   home: '/',
   create: 'create',
   favourites: 'favourites',
+  airport: 'favourites/:id',
 };

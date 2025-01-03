@@ -4,15 +4,35 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './index.scss';
 import { Outlet } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import { Link, NavLink } from 'react-router-dom';
 import {ROUTES} from '../../assets/constants'
+import AirportEdit from '../AirportEdit';
+import { AirportViewProps } from '../../interfaces/airportView';
+import { AirportProps } from '../../interfaces/airport';
 
 const Home: React.FC = () => {
+
+  const [modalShow, setModalShow] = React.useState(false);
+
+  const airport2 : AirportProps = {
+      name: 'Mateo',
+      link: 'mateo',
+      icao: 'mateo',
+      description: 'mateoooo',
+      visited: true
+}
+
+const airportView : AirportViewProps = {
+  airportView: {
+    airport: airport2,
+    view: false,
+  }
+}
+
     return (
         <div className='layout'>
           <section className='nav-bar'>
@@ -39,29 +59,23 @@ const Home: React.FC = () => {
                       <Nav.Link as={Link} to={ROUTES.home}>Home</Nav.Link>
                       <Nav.Link as={Link} to={ROUTES.create}>Create</Nav.Link>
                       <Nav.Link as={Link} to={ROUTES.favourites}>Airports</Nav.Link>
-                      <Nav.Link href="#action2">Link</Nav.Link>
-                      <NavDropdown
-                        title="Dropdown"
-                        id={`offcanvasNavbarDropdown-expand-${false}`}
-                        >
-                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action4">
-                          Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action5">
-                          Something else here
-                        </NavDropdown.Item>
-                      </NavDropdown>
+                      <span className='title-beta-version'>
+                        BETA - Try our new functionality
+                      </span>
                     </Nav>
                     <Form className="d-flex">
                       <Form.Control
                         type="search"
-                        placeholder="Search"
+                        placeholder="ICAO Code (Only Germany)"
                         className="me-2"
                         aria-label="Search"
                         />
-                      <Button variant="outline-success">Search</Button>
+                      <AirportEdit
+                            show={modalShow} 
+                            onHide={() => setModalShow(false)}
+                            airport={airportView}
+                        />
+                      <Button variant="outline-success" onClick={() => setModalShow(true)}>Search</Button>
                     </Form>
                   </Offcanvas.Body>
                 </Navbar.Offcanvas>

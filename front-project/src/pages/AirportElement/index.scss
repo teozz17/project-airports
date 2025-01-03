@@ -1,0 +1,15 @@
+.go-back {
+    text-decoration: none;
+    text-align: left;
+    color: black;
+    margin-left: 23px;
+
+    &:hover {
+        color: grey;
+    }
+}
+
+.span-back {
+    display: flex;
+    justify-content: flex-start;
+}
