@@ -14,6 +14,7 @@ const AirportView: React.FC = () => {
   }
 
   const airport2 = {
+    id: 1,
     name: 'Mateo',
     link: 'mateo',
     icao: 'mateo',

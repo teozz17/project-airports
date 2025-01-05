@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const ListsPage: React.FC = () => {
     const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4','Item 1', 'Item 2',];
     const airport2 = {
+        id: 1,
         name: 'Mateo',
         link: 'mateo',
         icao: 'mateo',
@@ -25,7 +26,7 @@ const ListsPage: React.FC = () => {
             {items.map((item, index) => (
                 <Link className='airports-container-link' to={`${index}`}>
                     <li className='airports-container-element' key={index}>
-                        <Ariport key={index} airportView={airportView} />
+                        <Ariport key={airportView.airport.id} airportView={airportView} />
                     </li>
                 </Link>
             ))}
