@@ -5,4 +5,5 @@ export const ROUTES = {
   create: 'create',
   favourites: 'favourites',
   airport: 'favourites/:id',
+  login: 'login',
 };

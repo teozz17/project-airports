@@ -1,0 +1,24 @@
+// ErrorPage styles
+
+$error-color: #ff4c4c;
+$background-color: #f2f2f2;
+$text-color: #333;
+$font-family: 'Arial', sans-serif;
+
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: $background-color;
+    color: $text-color;
+    font-family: $font-family;
+    text-align: center;
+
+    .error-message {
+        font-size: 2rem;
+        margin: 1rem 0;
+    }
+
+}

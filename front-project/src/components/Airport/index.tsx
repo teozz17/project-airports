@@ -36,7 +36,7 @@ return (
             </section>
         }
         {!airportView.airportView.view && 
-            <Card border="info" style={{ width: '18rem'}}>
+            <Card border="dark" style={{ width: '18rem'}}>
                 <Card.Header>{airportView.airportView.airport.name}</Card.Header>
                 <Card.Body>
                 <Card.Title>{airportView.airportView.airport.icao}</Card.Title>
