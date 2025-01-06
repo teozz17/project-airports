@@ -3,6 +3,9 @@ World Travel, Inc. Technical Interview
 
 # Airport Atlas
 
+user:admin
+password:admin
+
 ## Overview:
 An application to store airports worldwide, some visited and others yet to visit. Have a unique story or anecdote that happened to you at an airport? Add notes to keep a record of your flight stories. Add places and start your journey.
 
