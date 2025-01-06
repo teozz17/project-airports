@@ -20,7 +20,7 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
     });
     const [alert, setAlert] = useState('');
     const [disabled, setDisabled] = useState(false);
-    const [status, setStatus] = useState('false');
+    const [status, setStatus] = useState(airport.visited ? 'true' : 'false');
     const [updateAirportStatus, updateAddAirportStatus] = useState('idle');
     const dispatch = useDispatch();
     
@@ -37,7 +37,7 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
     }, [airport]);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setStatus(event.target.value);
+      setStatus(event.target.value);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -54,7 +54,7 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
                 event.preventDefault();
                 const newAirport : AirportProps = {
                     ...form,
-                    visited: status === 'true',
+                    visited: status === 'true' ? true : false,
                     id: airport.id
                 };
                 try {

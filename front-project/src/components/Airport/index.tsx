@@ -73,7 +73,7 @@ return (
                 <Card.Body>
                 <Card.Title>{airportView.airportView.airport.icao}</Card.Title>
                 <Card.Text>
-                    {airportView.airportView.airport.description.slice(0, 100)}...
+                    {airportView.airportView.airport.description.slice(0, 80)}...
                 </Card.Text>
                 <Card.Footer className={airport.visited ? "text-success" : "text-danger"}>{airport.visited ? <span>&#10003; visited</span>  :  <span>&#10539; not visited</span>}</Card.Footer>
                 </Card.Body>

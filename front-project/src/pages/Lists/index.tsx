@@ -18,7 +18,7 @@ const ListsPage: React.FC = () => {
     const airportsStatus = useSelector(getAirportsStatus);
     const [radioValue, setRadioValue] = useState('1');
     const actualUser = localStorage.getItem("access_token") as string;
-    const [token, setToken] = useState<string | null>(localStorage.getItem('access_token'));
+    const [token] = useState<string | null>(localStorage.getItem('access_token'));
     
     
     const radios = [
