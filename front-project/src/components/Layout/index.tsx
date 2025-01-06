@@ -23,6 +23,7 @@ const Home: React.FC = () => {
   const [userActive, setUserActive] = useState<boolean>(!!localStorage.getItem('access_token'));
   const [selectedAirport, setSelectedAirport] = useState<AirportProps | null>(null);
   const [loadingModal, setLoadingModal] = useState<boolean>(false);
+  const [errorFetching, setErrorFetching] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -39,7 +40,8 @@ const Home: React.FC = () => {
     };
 
     const hanleSearch = async (icaoCode: string) => {
-      setLoadingModal(true);
+      try {
+        setLoadingModal(true);
         console.log('searching for:', icaoCode);
         const token = localStorage.getItem('access_token') as string; 
         const response = await searchAirpotByICAOCode(token, icaoCode);
@@ -54,6 +56,14 @@ const Home: React.FC = () => {
         }
         setSelectedAirport(airport);
         setModalShow(true);
+      } catch (error) {
+        setErrorFetching(true);
+        console.error('Error fetching airport:', error);
+        setLoadingModal(false);
+        setTimeout(() => {
+          setErrorFetching(false);
+        }, 4000);
+      }
     }
 
     return (
@@ -117,8 +127,13 @@ const Home: React.FC = () => {
                             <Spinner animation="border" role="status">
                               <span className="visually-hidden">Loading...</span>
                             </Spinner>
-                          }
+                          } 
                         </Form>
+                        {errorFetching &&
+                        <>
+                          <span className='text-danger'>Error fetching airport, try again</span>
+                        </>
+                        }
                       </> :
                       <>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
