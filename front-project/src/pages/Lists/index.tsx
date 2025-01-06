@@ -17,20 +17,36 @@ const ListsPage: React.FC = () => {
     const [airportsFiltered, setAirportsFiltered] = useState<AirportProps[]>(airports);
     const airportsStatus = useSelector(getAirportsStatus);
     const [radioValue, setRadioValue] = useState('1');
-
     const actualUser = localStorage.getItem("access_token") as string;
+    const [token, setToken] = useState<string | null>(localStorage.getItem('access_token'));
     
-        useEffect(() => {
-            if(actualUser === null ) navigate(ROUTES.home);
-        }, []);
-
+    
+    const radios = [
+        { name: 'All', value: '1' },
+        { name: 'Visited', value: '2' },
+        { name: 'Not Visited', value: '3' },
+    ];
+    
     useEffect(() => {
-        const token = localStorage.getItem('access_token');
-        if (airportsStatus === 'idle' && token) {
+        if(actualUser === null ) navigate(ROUTES.home);
+    }, []);
+    
+     useEffect(() => {
+         if (airportsStatus === 'idle' && token) {
             dispatch(fetchAirports() as any);
         }
-    }, [airportsStatus, dispatch, localStorage.getItem('access_token')]); 
-
+    }, [airportsStatus, dispatch, token]);
+    
+    useEffect(() => {
+        if (radioValue === '1') {
+            setAirportsFiltered(airports);
+        } else if (radioValue === '2') {
+            setAirportsFiltered(airports.filter((airport: AirportProps) => airport.visited));
+        } else if (radioValue === '3') {
+            setAirportsFiltered(airports.filter((airport: AirportProps) => !airport.visited));
+        }
+    }, [radioValue, airports]);
+    
     //To do: make a better loading and error handling
     if (airportsStatus === 'loading') {
         return (
@@ -47,23 +63,7 @@ const ListsPage: React.FC = () => {
             </div>
         );
     }
-
-    const radios = [
-        { name: 'All', value: '1' },
-        { name: 'Visited', value: '2' },
-        { name: 'Not Visited', value: '3' },
-    ];
-
-    useEffect(() => {
-        if (radioValue === '1') {
-            setAirportsFiltered(airports);
-        } else if (radioValue === '2') {
-            setAirportsFiltered(airports.filter((airport: AirportProps) => airport.visited));
-        } else if (radioValue === '3') {
-            setAirportsFiltered(airports.filter((airport: AirportProps) => !airport.visited));
-        }
-    }, [radioValue, airports]);
-
+    
     return (
         <div className='lists'>
             <ButtonGroup className="mb-2">

@@ -14,6 +14,7 @@ const CreateAirport: React.FC = () => {
     const dispatch = useDispatch();
     const [status, setStatus] = useState('false');
     const [addAirportStatus, setAddAirportStatus] = useState('idle');
+    const [disabled, setDisabled] = useState(false);
     const [alert, setAlert] = useState('');
     const actualUser = localStorage.getItem("access_token") as string;
 
@@ -42,6 +43,7 @@ const CreateAirport: React.FC = () => {
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setDisabled(true);
         if (addAirportStatus === 'idle') {
             event.preventDefault();
             const newAirport : AirportRequest = {
@@ -64,13 +66,15 @@ const CreateAirport: React.FC = () => {
                 setStatus('false');
                 setTimeout(() => {
                     setAlert('');
+                    setDisabled(false);
                 }, 2000);
             } catch (error) {
+                setDisabled(false);
                 console.error('Error adding new airport:', error);
                 setAlert('Failed to add airport. Remember to add Name and ICAO code of only 4 characters');
                 setTimeout(() => {
                     setAlert('');
-                }, 6000);
+                }, 4000);
             } finally {
                 setAddAirportStatus('idle');
             }
@@ -136,7 +140,13 @@ const CreateAirport: React.FC = () => {
                     />
                 </FloatingLabel>
 
-                <button disabled={addAirportStatus === 'loading'} type="submit" className="btn btn-primary">Submit</button>
+                <button 
+                    disabled={addAirportStatus === 'loading' || disabled} 
+                    type="submit" 
+                    className={addAirportStatus === 'loading' || disabled ? "btn btn-secondary" : "btn btn-warning"}
+                >
+                    Submit
+                </button>
             </Form>
         </div>
     );

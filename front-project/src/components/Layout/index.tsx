@@ -13,6 +13,7 @@ import {ROUTES} from '../../assets/constants'
 import AirportEdit from '../AirportEdit';
 import { AirportProps } from '../../interfaces/airport';
 import { searchAirpotByICAOCode } from '../../api/airports';
+import { Spinner } from 'react-bootstrap';
 
 const Home: React.FC = () => {
   
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [userActive, setUserActive] = useState<boolean>(!!localStorage.getItem('access_token'));
   const [selectedAirport, setSelectedAirport] = useState<AirportProps | null>(null);
+  const [loadingModal, setLoadingModal] = useState<boolean>(false);
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -37,6 +39,7 @@ const Home: React.FC = () => {
     };
 
     const hanleSearch = async (icaoCode: string) => {
+      setLoadingModal(true);
         console.log('searching for:', icaoCode);
         const token = localStorage.getItem('access_token') as string; 
         const response = await searchAirpotByICAOCode(token, icaoCode);
@@ -88,22 +91,33 @@ const Home: React.FC = () => {
                           </span>
                         </Nav>
                         <Form className="d-flex">
-                          <Form.Control
-                            type="search"
-                            placeholder="ICAO Code (Only Germany)"
-                            className="me-2"
-                            aria-label="Search"
-                            onChange={(e) => setValues(e.target.value)}
-                            />
-                          
-                          <Button variant="outline-success" onClick={() => hanleSearch(values)}>Search</Button>
+                          {!loadingModal && 
+                          <>
+                            <Form.Control
+                              type="search"
+                              placeholder="ICAO Code (Only Germany)"
+                              className="me-2"
+                              aria-label="Search"
+                              onChange={(e) => setValues(e.target.value)}
+                              />
+                            <Button variant="outline-success" onClick={() => hanleSearch(values)}>Search</Button>
+                          </>
+                          }
                           {selectedAirport && (
                               <AirportEdit
                                   show={modalShow}
-                                  onHide={() => setModalShow(false)}
+                                  onHide={() => {
+                                    setModalShow(false);
+                                    setLoadingModal(false);
+                                  }}
                                   airport={{ airportView: { airport: selectedAirport, view: false } }}
                               />
                           )}
+                          {loadingModal &&
+                            <Spinner animation="border" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                          }
                         </Form>
                       </> :
                       <>

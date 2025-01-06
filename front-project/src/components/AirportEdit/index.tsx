@@ -19,6 +19,7 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
       visited: airport.visited
     });
     const [alert, setAlert] = useState('');
+    const [disabled, setDisabled] = useState(false);
     const [status, setStatus] = useState('false');
     const [updateAirportStatus, updateAddAirportStatus] = useState('idle');
     const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+            setDisabled(true);  
             if (updateAirportStatus === 'idle') {
                 event.preventDefault();
                 const newAirport : AirportProps = {
@@ -63,14 +65,16 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
                     setStatus('false');
                     setTimeout(() => {
                       setAlert('');
+                      setDisabled(false);
                       props.onHide();
                     }, 2000);
                 } catch (error) {
                     console.error('Error adding new airport:', error);
                     setAlert('Failed to add airport. Remember to add Name and ICAO code of only 4 characters');
+                    setDisabled(false);
                     setTimeout(() => {
                         setAlert('');
-                    }, 6000);
+                    }, 4000);
                 } finally {
                     updateAddAirportStatus('idle');
                 }
@@ -148,9 +152,9 @@ const AirportEdit = (props: { show: boolean, onHide: () => void , airport: Airpo
                 </FloatingLabel>
 
                 <button 
-                  disabled={updateAirportStatus === 'loading'} 
+                  disabled={updateAirportStatus === 'loading' || disabled} 
                   type="submit" 
-                  className={updateAirportStatus === 'loading' ? "btn btn-secondary" : "btn btn-warning"}
+                  className={updateAirportStatus === 'loading' || disabled ? "btn btn-secondary" : "btn btn-warning"}
                 >
                   Save
                 </button>
