@@ -5,6 +5,7 @@ World Travel, Inc. Technical Interview
 
 user:admin
 password:admin
+http://front-airports.s3-website-us-east-1.amazonaws.com/
 
 ## Overview:
 An application to store airports worldwide, some visited and others yet to visit. Have a unique story or anecdote that happened to you at an airport? Add notes to keep a record of your flight stories. Add places and start your journey.
