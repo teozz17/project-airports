@@ -70,6 +70,22 @@ Install PostgreSQL on your machine.
 Clone the repository, and run two terminals: one for the backend server and another for the frontend.  
 For the backend, navigate to the `back_project` folder and install all dependencies from `requirements.txt` using the command:  
 `pip install -r requirements.txt`  
+
+Do not forget to modify according to your data:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '*',
+        'USER': '*',
+        'PASSWORD': '*',
+        'HOST': '*',
+        'PORT': '*',
+    }
+}
+
+on settings.py
+
 Then run the following commands to create migrations and apply tables:  
 
 - `python manage.py makemigrations`  

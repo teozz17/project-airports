@@ -67,7 +67,23 @@ La configuración con RDS para la base de datos PostgreSQL, EC2 para el backend 
 ## Como probarlo:
 Tener instalado PostgreSQL en la maquina.  
 Clonar el repositorio, levantar dos terminales, una para el servidor backend y otra para el frontend.  
-Para el backend, ubicarse en la carpeta `back_project` e instalar todos los requerimientos dentro de `requirements.txt` con el comando `pip install -r requirements.txt`.  
+Para el backend, ubicarse en la carpeta `back_project` e instalar todos los requerimientos dentro de `requirements.txt` con el comando `pip install -r requirements.txt`.
+
+No olvidarse de modificar segun tus datos 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '*',
+        'USER': '*',
+        'PASSWORD': '*',
+        'HOST': '*',
+        'PORT': '*',
+    }
+}
+
+en settings.py
+
 Luego correr los siguientes comandos para crear las migraciones y aplicar las tablas:
 
 - `python manage.py makemigrations`  
