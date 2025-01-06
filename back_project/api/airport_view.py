@@ -51,15 +51,29 @@ def create_airport(request):
     with connection.cursor() as cursor:
         try:
             cursor.execute(
-                "INSERT INTO api_airport (name, link, icao, description, visited, user_id) VALUES (%s, %s, %s, %s, %s, %s)",
+                "INSERT INTO api_airport (name, link, icao, description, visited, user_id) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id",
                 [name, link, icao, description, visited, user_id]
             )
-            return Response({'message': 'Airport created successfully'}, status=status.HTTP_201_CREATED)
+            airport_id = cursor.fetchone()[0]
+            return Response(
+                {
+                    'message': 'Airport created successfully',
+                    'airport':{
+
+                        'id': airport_id,
+                        'name': name,
+                        'link': link,
+                        'icao': icao,
+                        'description': description,
+                        'visited': visited
+                    }
+                }
+                , status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['PUT'])
-def update_airport(request, airport_id):
+def update_airport(request, airport_id=None):
     token = request.headers.get('Authorization')
     if not token:
         return Response({'error': 'Authorization header missing'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -79,13 +93,45 @@ def update_airport(request, airport_id):
 
     with connection.cursor() as cursor:
         try:
-            cursor.execute(
-                "UPDATE api_airport SET name = %s, link = %s, icao = %s, description = %s, visited = %s WHERE id = %s AND user_id = %s",
-                [name, link, icao, description, visited, airport_id, user_id]
-            )
-            if cursor.rowcount == 0:
-                return Response({'error': 'Airport not found or not authorized'}, status=status.HTTP_404_NOT_FOUND)
-            return Response({'message': 'Airport updated successfully'}, status=status.HTTP_200_OK)
+            if airport_id:
+                # Update existing airport
+                cursor.execute(
+                    "UPDATE api_airport SET name = %s, link = %s, icao = %s, description = %s, visited = %s WHERE id = %s AND user_id = %s",
+                    [name, link, icao, description, visited, airport_id, user_id]
+                )
+                if cursor.rowcount == 0:
+                    return Response({'error': 'Airport not found or not authorized'}, status=status.HTTP_404_NOT_FOUND)
+                return Response(
+                    {
+                        'message': 'Airport updated successfully',
+                        'airport': {
+                            'id': airport_id,
+                            'name': name,
+                            'link': link,
+                            'icao': icao,
+                            'description': description,
+                            'visited': visited
+                        }   
+                    }, status=status.HTTP_200_OK)
+            else:
+                # Create new airport
+                cursor.execute(
+                    "INSERT INTO api_airport (name, link, icao, description, visited, user_id) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id",
+                    [name, link, icao, description, visited, user_id]
+                )
+                airport_id = cursor.fetchone()[0]
+                return Response(
+                    {
+                        'message': 'Airport created successfully',
+                        'airport': {
+                            'id': airport_id,
+                            'name': name,
+                            'link': link,
+                            'icao': icao,
+                            'description': description,
+                            'visited': visited
+                        }
+                    }, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -104,7 +150,7 @@ def delete_airport(request, airport_id):
             cursor.execute("DELETE FROM api_airport WHERE id = %s AND user_id = %s", [airport_id, user_id])
             if cursor.rowcount == 0:
                 return Response({'error': 'Airport not found or not authorized'}, status=status.HTTP_404_NOT_FOUND)
-            return Response({'message': 'Airport deleted successfully'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Airport deleted successfully', 'id': airport_id}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         

@@ -1,41 +1,59 @@
-import React from "react";
-import { useParams } from "react-router";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 import Airport from "../../components/Airport";
 import { Link } from "react-router-dom";
 import { ROUTES } from '../../assets/constants'
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import './index.scss'
+import { AirportViewProps } from "../../interfaces/airportView";
 
 const AirportView: React.FC = () => {
+  const navigate = useNavigate();
   const index = useParams();
   const id = index?.id
+  const actualUser = localStorage.getItem("access_token") as string;
+  
+      useEffect(() => {
+          if(actualUser === null ) navigate(ROUTES.home);
+      }, []);
 
   if (id === undefined) {
     return <p>Invalid airport index.</p>;
   }
 
-  const airport2 = {
-    id: 1,
-    name: 'Mateo',
-    link: 'mateo',
-    icao: 'mateo',
-    description: 'mateoooo',
-    visited: true
-}
+  const airport = useSelector((state: RootState) =>
+    state.airports.airports.find((airport) => airport.id === Number(id))
+  );
 
-  const airportView = {
-    airportView: {
-      view: true,
-      airport: airport2,
-    },
-  };
-
-  return (
-    <>
+  if (!airport) {
+    
+    return (
+      <>
         <span className="span-back">
             <Link className="go-back" to={`/${ROUTES.favourites}`}>
                 Back
             </Link>
         </span>
+        <p>Airport not found.</p>
+      </>
+    );
+  }
+
+  const airportView : AirportViewProps = {
+    airportView: {
+      airport: airport,
+      view: true
+    }
+  };
+
+  return (
+    <>
+      <span className="span-back">
+          <Link className="go-back" to={`/${ROUTES.favourites}`}>
+              Back
+          </Link>
+      </span>
       <Airport {...airportView} />
     </>
   ); 

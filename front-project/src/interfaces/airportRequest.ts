@@ -1,5 +1,4 @@
-export interface AirportProps {
-    id: number | null;
+export interface AirportRequest {
     name: string;
     link: string;
     icao: string;

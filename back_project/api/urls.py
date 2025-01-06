@@ -7,8 +7,9 @@ urlpatterns = [
     path('login/', login_user, name='login_user'),
     path('airports/', get_airports, name='get_airports'),
     path('airports/create/', create_airport, name='create_airport'),
-    path('airports/<int:airport_id>/', update_airport, name='update_airport'),
-    path('airports/<int:airport_id>/', delete_airport, name='delete_airport'),
+    path('airports/update/', update_airport, name='create_or_update_airport'),
+    path('airports/<int:airport_id>/update/', update_airport, name='update_airport'),
+    path('airports/<int:airport_id>/delete/', delete_airport, name='delete_airport'),
     path('airports/<str:icao>/', get_airport_by_icao, name='get_airport_by_icao')
 ]
 

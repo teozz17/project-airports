@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import './index.scss';
 import { register, login } from '../../api/users';
 import { RegisterData, LoginData } from '../../interfaces/registerData';
-
+import { ROUTES } from '../../assets/constants';
 const Login: React.FC = () => {
-    
     const [isRegisterActive, setIsRegisterActive] = useState(false);
 
     const handleSwitch = () => {
@@ -42,7 +41,8 @@ const Login: React.FC = () => {
         const loginData: LoginData = { email: loginEmail, password: loginPassword };
         try {
             const response = await login(loginData);
-            console.log('Login successful:', response);
+            localStorage.setItem('access_token', response.data.token);
+            window.location.href = ROUTES.home;  
         } catch (error) {
             console.error('Error during login:', error);
         }
