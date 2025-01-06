@@ -2,9 +2,8 @@
 World Travel, Inc. Technical Interview
 
 # Airport Atlas
-
-user:admin
-password:admin
+user:admin  
+password:admin  
 http://front-airports.s3-website-us-east-1.amazonaws.com/
 
 ## Overview:
