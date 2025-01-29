@@ -99,4 +99,4 @@ Luego, iniciamos el desarrollo con:
 
 - `npm run dev`
 
-Esto será suficiente para tener acceso a toda la aplicación.
+Esto será suficiente para tener acceso a toda la aplicación
