@@ -1,0 +1,12 @@
+name: prueba2
+run-name: prueba ls -R
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: List files in the repository
+        run: |
+          ls -R ${{ github.workspace }}
